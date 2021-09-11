@@ -1,0 +1,381 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>vue3笔记 - Chaoer&#39;blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="个人博客，主要记录学习笔记,Vue31.认识Vue31.1 性能提升
+打包大小减少41%
+初次渲染块55%,更新渲染块133%
+内存减少54%
+使用Proxy代替defineProperty实现数据响应式
+重写虚拟DOM的实现,"> 
+    <meta name="author" content="Chaoer"> 
+    <link rel="alternative" href="atom.xml" title="Chaoer&#39;blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Chaoer&#39;blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blackchao-script.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">vue3笔记</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">vue3笔记</h1>
+        <div class="stuff">
+            <span>九月 11, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%A1%86%E6%9E%B6/" rel="tag">框架</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h1><h2 id="1-认识Vue3"><a href="#1-认识Vue3" class="headerlink" title="1.认识Vue3"></a>1.认识Vue3</h2><h3 id="1-1-性能提升"><a href="#1-1-性能提升" class="headerlink" title="1.1 性能提升"></a>1.1 性能提升</h3><ul>
+<li>打包大小减少41%</li>
+<li>初次渲染块55%,更新渲染块133%</li>
+<li>内存减少54%</li>
+<li><strong>使用Proxy代替defineProperty实现数据响应式</strong></li>
+<li><strong>重写虚拟DOM的实现和Tree-Shaking</strong></li>
+</ul>
+<h3 id="1-2-新增特性"><a href="#1-2-新增特性" class="headerlink" title="1.2 新增特性"></a>1.2 新增特性</h3><ul>
+<li><p><strong>Composition (组合) API</strong></p>
+</li>
+<li><p>setup</p>
+<ul>
+<li>ref和reactive</li>
+<li>computed和watch</li>
+<li>新的生命周期函数</li>
+<li>provide与inject</li>
+<li>…..</li>
+</ul>
+</li>
+<li><p>新组件</p>
+<ul>
+<li>Fragment - 文档碎片</li>
+<li>Teleport - 瞬移组件的位置</li>
+<li>Suspense - 异步加载组件的loading界面</li>
+</ul>
+</li>
+<li><p>其它API更新</p>
+<ul>
+<li>全局API的修改</li>
+<li>将原来的全局API转移到应用对象</li>
+<li>模板语法变化</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-创建一个Vue3项目"><a href="#2-创建一个Vue3项目" class="headerlink" title="2.创建一个Vue3项目"></a>2.创建一个Vue3项目</h2><h3 id="2-1-使用-vue-cli-创建"><a href="#2-1-使用-vue-cli-创建" class="headerlink" title="2.1 使用 vue-cli 创建"></a>2.1 使用 vue-cli 创建</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create my-project</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-使用vite创建"><a href="#2-2-使用vite创建" class="headerlink" title="2.2 使用vite创建"></a>2.2 使用vite创建</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm:</span><br><span class="line">$ npm init vite@latest</span><br><span class="line">Yarn:</span><br><span class="line">yarn create vite</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Compositon-API"><a href="#3-Compositon-API" class="headerlink" title="3.Compositon API"></a>3.Compositon API</h2><h3 id="3-1-setup"><a href="#3-1-setup" class="headerlink" title="3.1 setup"></a>3.1 setup</h3><ul>
+<li>新的option, 所有的组合API函数都在此使用, 只在初始化时执行一次</li>
+<li>函数如果返回对象, 对象中的属性或方法, 模板中可以直接使用</li>
+<li>setup执行的时机<ul>
+<li>在beforeCreate之前执行(一次), 此时组件对象还没有创建</li>
+<li>this是undefined, 不能通过this来访问data/computed/methods / props <strong>在 <code>setup()</code> 内部，<code>this</code> 不是该活跃实例的引用</strong>，因为 <code>setup()</code> 是在解析其它组件选项之前被调用的，所以 <code>setup()</code> 内部的 <code>this</code> 的行为与其它选项中的 <code>this</code> 完全不同。这使得 <code>setup()</code> 在和其它选项式 API 一起使用时可能会导致混淆。</li>
+<li>其实所有的composition API相关回调函数中也都不可以</li>
+</ul>
+</li>
+<li>setup的返回值<ul>
+<li>一般都返回一个对象: 为模板提供数据, 也就是模板中可以直接使用此对象中的所有属性/方法</li>
+<li>返回对象中的属性会与data函数返回对象的属性合并成为组件对象的属性</li>
+<li>返回对象中的方法会与methods中的方法合并成功组件对象的方法</li>
+<li>如果有重名, setup优先</li>
+<li>注意:</li>
+<li>一般不要混合使用: methods中可以访问setup提供的属性和方法, 但在setup方法中不能访问data和methods</li>
+<li>setup不能是一个async函数: 因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性数据</li>
+</ul>
+</li>
+<li>setup的参数<ul>
+<li>setup(props, context) / setup(props, {attrs, slots, emit})</li>
+<li>props: 包含props配置声明且传入了的所有属性的对象</li>
+<li>attrs: 包含没有在props配置中声明的属性的对象, 相当于 this.$attrs</li>
+<li>slots: 包含所有传入的插槽内容的对象, 相当于 this.$slots</li>
+<li>emit: 用来分发自定义事件的函数, 相当于 this.$emit</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-ref"><a href="#3-2-ref" class="headerlink" title="3.2 ref"></a>3.2 ref</h3><ul>
+<li><p>作用: 定义一个数据的响应式</p>
+</li>
+<li><p>语法: const xxx = ref(initValue)</p>
+<ul>
+<li>创建一个包含响应式数据的引用(reference)对象</li>
+<li>js中操作数据: xxx.value</li>
+<li>模板中操作数据: 不需要.value</li>
+</ul>
+</li>
+<li><p>一般用来定义一个基本类型的响应式数据</p>
+</li>
+</ul>
+<h3 id="3-3-reactive"><a href="#3-3-reactive" class="headerlink" title="3.3 reactive"></a>3.3 reactive</h3><ul>
+<li>作用: 定义多个数据的响应式</li>
+<li>const proxy = reactive(obj): 接收一个普通对象然后返回该普通对象的响应式代理器对象</li>
+<li>响应式转换是“深层的”：会影响对象内部所有嵌套的属性</li>
+<li>内部基于 ES6 的 Proxy 实现，通过代理对象操作源对象内部数据都是响应式的</li>
+</ul>
+<h3 id="3-4-比较Vue2与Vue3的响应式-重要"><a href="#3-4-比较Vue2与Vue3的响应式-重要" class="headerlink" title="3.4 比较Vue2与Vue3的响应式(重要)"></a>3.4 比较Vue2与Vue3的响应式(重要)</h3><h4 id="3-4-1-vue2的响应式"><a href="#3-4-1-vue2的响应式" class="headerlink" title="3.4.1 vue2的响应式"></a>3.4.1 vue2的响应式</h4><ul>
+<li>核心:<ul>
+<li>对象: 通过defineProperty对对象的已有属性值的读取和修改进行劫持(监视/拦截)</li>
+<li>数组: 通过重写数组更新数组一系列更新元素的方法来实现元素修改的劫持</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(data, <span class="string">&#x27;count&#x27;</span>, &#123;</span><br><span class="line">    get () &#123;&#125;, </span><br><span class="line">    set () &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>问题</p>
+<ul>
+<li>对象直接新添加的属性或删除已有属性, 界面不会自动更新</li>
+<li>直接通过下标替换元素或更新length, 界面不会自动更新 arr[1] = {}</li>
+</ul>
+<h4 id="3-4-2-Vue3的响应式"><a href="#3-4-2-Vue3的响应式" class="headerlink" title="3.4.2 Vue3的响应式"></a>3.4.2 Vue3的响应式</h4></li>
+</ul>
+<p>核心:</p>
+<ul>
+<li>通过Proxy(代理): 拦截对data任意属性的任意(13种)操作, 包括属性值的读写, 属性的添加, 属性的删除等…</li>
+<li>通过 Reflect(反射): 动态对被代理对象的相应属性进行特定的操作</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">	<span class="comment">// 拦截读取属性值</span></span><br><span class="line">    get (target, prop) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, prop)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 拦截设置属性值或添加新属性</span></span><br><span class="line">    set (target, prop, value) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, prop, value)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 拦截删除属性</span></span><br><span class="line">    deleteProperty (target, prop) &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="built_in">Reflect</span>.deleteProperty(target, prop)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">proxy.name = <span class="string">&#x27;tom&#x27;</span>   </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">  &lt;title&gt;Proxy 与 Reflect&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    </span><br><span class="line">    const user = &#123;</span><br><span class="line">      name: &quot;John&quot;,</span><br><span class="line">      age: 12</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    /* </span><br><span class="line">    proxyUser是代理对象, user是被代理对象</span><br><span class="line">    后面所有的操作都是通过代理对象来操作被代理对象内部属性</span><br><span class="line">    */</span><br><span class="line">    const proxyUser = new Proxy(user, &#123;</span><br><span class="line"></span><br><span class="line">      get(target, prop) &#123;</span><br><span class="line">        console.log(&#x27;劫持get()&#x27;, prop)</span><br><span class="line">        return Reflect.get(target, prop)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      set(target, prop, val) &#123;</span><br><span class="line">        console.log(&#x27;劫持set()&#x27;, prop, val)</span><br><span class="line">        return Reflect.set(target, prop, val); // (2)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      deleteProperty (target, prop) &#123;</span><br><span class="line">        console.log(&#x27;劫持delete属性&#x27;, prop)</span><br><span class="line">        return Reflect.deleteProperty(target, prop)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    // 读取属性值</span><br><span class="line">    console.log(proxyUser===user)</span><br><span class="line">    console.log(proxyUser.name, proxyUser.age)</span><br><span class="line">    // 设置属性值</span><br><span class="line">    proxyUser.name = &#x27;bob&#x27;</span><br><span class="line">    proxyUser.age = 13</span><br><span class="line">    console.log(user)</span><br><span class="line">    // 添加属性</span><br><span class="line">    proxyUser.sex = &#x27;男&#x27;</span><br><span class="line">    console.log(user)</span><br><span class="line">    // 删除属性</span><br><span class="line">    delete proxyUser.sex</span><br><span class="line">    console.log(user)</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-reactive与ref细节"><a href="#3-5-reactive与ref细节" class="headerlink" title="3.5 reactive与ref细节"></a>3.5 reactive与ref细节</h3><ul>
+<li>是Vue3的 composition API中2个最重要的响应式API</li>
+<li>ref用来处理基本类型数据, reactive用来处理对象(递归深度响应式)</li>
+<li>如果用ref对象/数组, 内部会自动将对象/数组转换为reactive的代理对象</li>
+<li>ref内部: 通过给value属性添加getter/setter来实现对数据的劫持</li>
+<li>reactive内部: 通过使用Proxy来实现对对象内部所有数据的劫持, 并通过Reflect操作对象内部数据</li>
+<li>ref的数据操作: 在js中要.value, 在模板中不需要(内部解析模板时会自动添加.value)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h2&gt;App&lt;/h2&gt;</span><br><span class="line">  &lt;p&gt;m1: &#123;&#123;m1&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;m2: &#123;&#123;m2&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;m3: &#123;&#123;m3&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;button @click=&quot;update&quot;&gt;更新&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123;</span><br><span class="line">  reactive,</span><br><span class="line">  ref</span><br><span class="line">&#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line"></span><br><span class="line">  setup () &#123;</span><br><span class="line">    const m1 = ref(&#x27;abc&#x27;)</span><br><span class="line">    const m2 = reactive(&#123;x: 1, y: &#123;z: &#x27;abc&#x27;&#125;&#125;)</span><br><span class="line"></span><br><span class="line">    // 使用ref处理对象  ==&gt; 对象会被自动reactive为proxy对象</span><br><span class="line">    const m3 = ref(&#123;a1: 2, a2: &#123;a3: &#x27;abc&#x27;&#125;&#125;)</span><br><span class="line">    console.log(m1, m2, m3)</span><br><span class="line">    console.log(m3.value.a2) // 也是一个proxy对象</span><br><span class="line"></span><br><span class="line">    function update() &#123;</span><br><span class="line">      m1.value += &#x27;--&#x27;</span><br><span class="line">      m2.x += 1</span><br><span class="line">      m2.y.z += &#x27;++&#x27;</span><br><span class="line"></span><br><span class="line">      m3.value = &#123;a1: 3, a2: &#123;a3: &#x27;abc---&#x27;&#125;&#125;</span><br><span class="line">      m3.value.a2.a3 += &#x27;==&#x27; // reactive对对象进行了深度数据劫持</span><br><span class="line">      console.log(m3.value.a2)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      m1,</span><br><span class="line">      m2,</span><br><span class="line">      m3,</span><br><span class="line">      update</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-6-计算属性与监视"><a href="#3-6-计算属性与监视" class="headerlink" title="3.6 计算属性与监视"></a>3.6 计算属性与监视</h3><ul>
+<li>computed函数:<ul>
+<li>与computed配置功能一致</li>
+<li>只有getter</li>
+<li>有getter和setter</li>
+</ul>
+</li>
+<li>watch函数<ul>
+<li>与watch配置功能一致</li>
+<li>监视指定的一个或多个响应式数据, 一旦数据变化, 就自动执行监视回调</li>
+<li>默认初始时不执行回调, 但可以通过配置immediate为true, 来指定初始时立即执行第一次</li>
+<li>通过配置deep为true, 来指定深度监视</li>
+</ul>
+</li>
+<li>watchEffect函数<ul>
+<li>不用直接指定要监视的数据, 回调函数中使用的哪些响应式数据就监视哪些响应式数据</li>
+<li>默认初始时就会执行第一次, 从而可以收集需要监视的数据</li>
+<li>监视数据发生变化时回调</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h2&gt;App&lt;/h2&gt;</span><br><span class="line">  fistName: &lt;input v-model=&quot;user.firstName&quot;/&gt;&lt;br&gt;</span><br><span class="line">  lastName: &lt;input v-model=&quot;user.lastName&quot;/&gt;&lt;br&gt;</span><br><span class="line">  fullName1: &lt;input v-model=&quot;fullName1&quot;/&gt;&lt;br&gt;</span><br><span class="line">  fullName2: &lt;input v-model=&quot;fullName2&quot;&gt;&lt;br&gt;</span><br><span class="line">  fullName3: &lt;input v-model=&quot;fullName3&quot;&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang=&quot;ts&quot;&gt;</span><br><span class="line">/*</span><br><span class="line">计算属性与监视</span><br><span class="line">1. computed函数: </span><br><span class="line">  与computed配置功能一致</span><br><span class="line">  只有getter</span><br><span class="line">  有getter和setter</span><br><span class="line">2. watch函数</span><br><span class="line">  与watch配置功能一致</span><br><span class="line">  监视指定的一个或多个响应式数据, 一旦数据变化, 就自动执行监视回调</span><br><span class="line">  默认初始时不执行回调, 但可以通过配置immediate为true, 来指定初始时立即执行第一次</span><br><span class="line">  通过配置deep为true, 来指定深度监视</span><br><span class="line">3. watchEffect函数</span><br><span class="line">  不用直接指定要监视的数据, 回调函数中使用的哪些响应式数据就监视哪些响应式数据</span><br><span class="line">  默认初始时就会执行第一次, 从而可以收集需要监视的数据</span><br><span class="line">  监视数据发生变化时回调</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">import &#123;</span><br><span class="line">  reactive,</span><br><span class="line">  ref,</span><br><span class="line">  computed,</span><br><span class="line">  watch,</span><br><span class="line">  watchEffect</span><br><span class="line">&#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line"></span><br><span class="line">  setup () &#123;</span><br><span class="line">    const user = reactive(&#123;</span><br><span class="line">      firstName: &#x27;A&#x27;,</span><br><span class="line">      lastName: &#x27;B&#x27;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    // 只有getter的计算属性</span><br><span class="line">    const fullName1 = computed(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;fullName1&#x27;)</span><br><span class="line">      return user.firstName + &#x27;-&#x27; + user.lastName</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    // 有getter与setter的计算属性</span><br><span class="line">    const fullName2 = computed(&#123;</span><br><span class="line">      get () &#123;</span><br><span class="line">        console.log(&#x27;fullName2 get&#x27;)</span><br><span class="line">        return user.firstName + &#x27;-&#x27; + user.lastName</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      set (value: string) &#123;</span><br><span class="line">        console.log(&#x27;fullName2 set&#x27;)</span><br><span class="line">        const names = value.split(&#x27;-&#x27;)</span><br><span class="line">        user.firstName = names[0]</span><br><span class="line">        user.lastName = names[1]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    const fullName3 = ref(&#x27;&#x27;)</span><br><span class="line"></span><br><span class="line">    /* </span><br><span class="line">    watchEffect: 监视所有回调中使用的数据</span><br><span class="line">    */</span><br><span class="line">    /* </span><br><span class="line">    watchEffect(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;watchEffect&#x27;)</span><br><span class="line">      fullName3.value = user.firstName + &#x27;-&#x27; + user.lastName</span><br><span class="line">    &#125;) </span><br><span class="line">    */</span><br><span class="line"></span><br><span class="line">    /* </span><br><span class="line">    使用watch的2个特性:</span><br><span class="line">      深度监视</span><br><span class="line">      初始化立即执行</span><br><span class="line">    */</span><br><span class="line">    watch(user, () =&gt; &#123;</span><br><span class="line">      fullName3.value = user.firstName + &#x27;-&#x27; + user.lastName</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      immediate: true,  // 是否初始化立即执行一次, 默认是false</span><br><span class="line">      deep: true, // 是否是深度监视, 默认是false</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    /* </span><br><span class="line">    watch一个数据</span><br><span class="line">      默认在数据发生改变时执行回调</span><br><span class="line">    */</span><br><span class="line">    watch(fullName3, (value) =&gt; &#123;</span><br><span class="line">      console.log(&#x27;watch&#x27;)</span><br><span class="line">      const names = value.split(&#x27;-&#x27;)</span><br><span class="line">      user.firstName = names[0]</span><br><span class="line">      user.lastName = names[1]</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    /* </span><br><span class="line">    watch多个数据: </span><br><span class="line">      使用数组来指定</span><br><span class="line">      如果是ref对象, 直接指定</span><br><span class="line">      如果是reactive对象中的属性,  必须通过函数来指定</span><br><span class="line">    */</span><br><span class="line">    watch([() =&gt; user.firstName, () =&gt; user.lastName, fullName3], (values) =&gt; &#123;</span><br><span class="line">      console.log(&#x27;监视多个数据&#x27;, values)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      user,</span><br><span class="line">      fullName1,</span><br><span class="line">      fullName2,</span><br><span class="line">      fullName3</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-7生命周期"><a href="#3-7生命周期" class="headerlink" title="3.7生命周期"></a>3.7生命周期</h3><p><strong>与 2.x 版本生命周期相对应的组合式 API</strong></p>
+<ul>
+<li><code>beforeCreate</code> -&gt; 使用 <code>setup()</code></li>
+<li><code>created</code> -&gt; 使用 <code>setup()</code></li>
+<li><code>beforeMount</code> -&gt; <code>onBeforeMount</code> 此时已经完成了模板编译,但是没有挂在到页面中</li>
+<li><code>mounted</code> -&gt; <code>onMounted</code> 此时，已经将编译好的模板，挂载到了页面指定的容器中显示</li>
+<li><code>beforeUpdate</code> -&gt; <code>onBeforeUpdate </code>状态更新之前执行此函数,此时<strong>data</strong>中的状态值是最新的,但是界面上显示的数据还是旧的，因为此时还没有重新渲染<strong>DOM</strong>节点</li>
+<li><code>updated</code> -&gt; <code>onUpdated</code> 实例更新完毕之后调用此函数,此时<strong>data</strong>中的状态值和界面上显示的数据，都已经完成更新，界面已经被重新渲染好了</li>
+<li><code>beforeDestroy</code> -&gt; <code>onBeforeUnmount</code> 实例销毁之前调用。在这一步,实例仍然完全可用</li>
+<li><code>destroyed</code> -&gt; <code>onUnmounted</code> 实例销毁后调用。调用后，<strong>Vue</strong>实例指示的所有东西都会解除绑定，所有的事件监听器会被 移除所有的子实例也会被销毁</li>
+<li><code>errorCaptured</code> -&gt; <code>onErrorCaptured</code></li>
+</ul>
+<p><strong>新增的钩子函数</strong></p>
+<p>组合式 API 还提供了以下调试钩子函数：</p>
+<ul>
+<li>onRenderTracked</li>
+<li>onRenderTriggered</li>
+</ul>
+<p>因为 <code>setup</code> 是围绕 <code>beforeCreate</code> 和 <code>created</code> 生命周期钩子运行的，所以不需要显式地定义它们。换句话说，在这些钩子中编写的任何代码都应该直接在 <code>setup</code> 函数中编写。</p>
+<p>这些函数接受一个回调函数，当钩子被组件调用时将会被执行:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    // mounted</span><br><span class="line">    onMounted(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;Component is mounted!&#x27;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="D:\笔记\img\vue生命周期图.svg"></p>
+<h3 id="3-8-toRefs"><a href="#3-8-toRefs" class="headerlink" title="3.8 toRefs"></a>3.8 toRefs</h3><p>把一个响应式对象转换成普通对象，该普通对象的每个 property 都是一个 ref</p>
+<p>应用: 当从合成函数返回响应式对象时，toRefs 非常有用，这样消费组件就可以在不丢失响应式的情况下对返回的对象进行分解使用</p>
+<p>问题: reactive 对象取出的所有属性值都是非响应式的</p>
+<p>解决: 利用 toRefs 可以将一个响应式 reactive 对象的所有原始属性转换为响应式的 ref 属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = reactive(&#123;</span><br><span class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">bar</span>: <span class="number">2</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> stateAsRefs = toRefs(state)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">stateAsRefs 的类型:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  foo: Ref&lt;number&gt;,</span></span><br><span class="line"><span class="comment">  bar: Ref&lt;number&gt;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ref 和原始 property 已经“链接”起来了</span></span><br><span class="line">state.foo++</span><br><span class="line"><span class="built_in">console</span>.log(stateAsRefs.foo.value) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">stateAsRefs.foo.value++</span><br><span class="line"><span class="built_in">console</span>.log(state.foo) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>当从组合式函数返回响应式对象时，<code>toRefs</code> 非常有用，这样消费组件就可以在不丢失响应性的情况下对返回的对象进行分解/扩散：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useFeatureX</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> state = reactive(&#123;</span><br><span class="line">    <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">bar</span>: <span class="number">2</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 操作 state 的逻辑</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回时转换为ref</span></span><br><span class="line">  <span class="keyword">return</span> toRefs(state)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">setup</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 可以在不失去响应性的情况下解构</span></span><br><span class="line">    <span class="keyword">const</span> &#123; foo, bar &#125; = useFeatureX()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      foo,</span><br><span class="line">      bar</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-9-ref获取元素"><a href="#3-9-ref获取元素" class="headerlink" title="3.9 ref获取元素"></a>3.9 ref获取元素</h3><p>利用ref函数获取组件中的标签元素</p>
+<p>功能需求: 让输入框自动获取焦点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h2&gt;App&lt;/h2&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot;&gt;---</span><br><span class="line">  &lt;input type=&quot;text&quot; ref=&quot;inputRef&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; onMounted, ref &#125; from &#x27;vue&#x27;</span><br><span class="line">/* </span><br><span class="line">ref获取元素: 利用ref函数获取组件中的标签元素</span><br><span class="line">功能需求: 让输入框自动获取焦点</span><br><span class="line">*/</span><br><span class="line">export default &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    const inputRef = ref&lt;HTMLElement|null&gt;(null)</span><br><span class="line"></span><br><span class="line">    onMounted(() =&gt; &#123;</span><br><span class="line">      inputRef.value &amp;&amp; inputRef.value.focus()</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      inputRef</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-10-toRef"><a href="#3-10-toRef" class="headerlink" title="3.10 toRef"></a>3.10 toRef</h3><ul>
+<li>为源响应式对象上的某个属性创建一个 ref对象, 二者内部操作的是同一个数据值, 更新时二者是同步的</li>
+<li>区别ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响</li>
+<li>应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = reactive(&#123;</span><br><span class="line">     <span class="attr">foo</span>: <span class="number">1</span>,</span><br><span class="line">     <span class="attr">bar</span>: <span class="number">2</span></span><br><span class="line">   &#125;)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">const</span> foo = toRef(state, <span class="string">&#x27;foo&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-vue3-ts中vue-router-的使用"><a href="#4-vue3-ts中vue-router-的使用" class="headerlink" title="4.vue3 ts中vue-router 的使用"></a>4.vue3 ts中vue-router 的使用</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory, RouteRecordRaw &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">const</span> routes: <span class="built_in">Array</span>&lt;RouteRecordRaw&gt; = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/home&#x27;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>, <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;views/home.vue&#x27;</span>) &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;views/login.vue&#x27;</span>),</span><br><span class="line">    <span class="attr">children</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;user&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;views/user.vue&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;views/password.vue&#x27;</span>),</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br><span class="line"><span class="comment">// 工厂函数创建router实例</span></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">  <span class="attr">history</span>: createWebHistory(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-vue3-ts中vue-vuex-的使用"><a href="#5-vue3-ts中vue-vuex-的使用" class="headerlink" title="5.vue3 ts中vue-vuex 的使用"></a>5.vue3 ts中vue-vuex 的使用</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createStore(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123;</span><br><span class="line">    <span class="attr">couter</span>: <span class="number">0</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">mutations</span>: &#123;</span><br><span class="line">    <span class="function"><span class="title">addCouter</span>(<span class="params">state</span>)</span> &#123;</span><br><span class="line">      state.couter++</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">modules</span>: &#123;&#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-在main-ts中"><a href="#6-在main-ts中" class="headerlink" title="6.在main.ts中"></a>6.在main.ts中</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 程序的主入口文件,ts文件,时main.ts</span></span><br><span class="line"><span class="comment">// 引入createApp函数,创建对应的应用,产生应用的实例对象</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="comment">// 引入App组件(所有组件的父级组件)</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&quot;./App.vue&quot;</span>;</span><br><span class="line"><span class="comment">// 引入router路由组件</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&quot;./router&quot;</span>;</span><br><span class="line"><span class="comment">// 引用vuex状态管理组件</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&quot;./store&quot;</span>;</span><br><span class="line"><span class="comment">// 创建App应用返回对应的实例对象,使用store和router,调用mount方法进行挂载</span></span><br><span class="line">createApp(App)</span><br><span class="line">  .use(store)</span><br><span class="line">  .use(router)</span><br><span class="line">  .mount(<span class="string">&quot;#app&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-语法糖"><a href="#7-语法糖" class="headerlink" title="7.语法糖"></a>7.语法糖</h2><p>只需要在<code>script</code>标签中添加<code>setup</code>，组件只需引入不用注册，属性和方法也不用返回，<code>setup</code>函数也不需要，甚至<code>export default</code>都不用写了，不仅是数据，计算属性和方法，甚至是自定义指令也可以在我们的<code>template</code>中自动获得。</p>
+<p>setup script语法糖提供了三个新的API来供我们使用：defineProps、defineEmit和useContext</p>
+<ul>
+<li>defineProps 用来接收父组件传来的值props。</li>
+<li>defineEmit 用来声明触发的事件表。</li>
+<li>useContext 用来获取组件上下文context。</li>
+</ul>
+<p>父组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;我是父组件！&lt;/h2&gt;</span><br><span class="line">    &lt;Child msg=&quot;hello&quot;</span><br><span class="line">           @child-click=&quot;handleClick&quot; /&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt; import Child from &#x27;./components/Child.vue&#x27;</span><br><span class="line"></span><br><span class="line">const handleClick = (ctx) =&gt; &#123;</span><br><span class="line">  console.log(ctx)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;span @click=&quot;sonClick&quot;&gt;msg: &#123;&#123; props.msg &#125;&#125;&lt;/span&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt; import &#123; useContext, defineProps, defineEmit &#125; from &#x27;vue&#x27;</span><br><span class="line"></span><br><span class="line">const emit = defineEmit([&#x27;child-click&#x27;])</span><br><span class="line">const ctx = useContext()</span><br><span class="line">const props = defineProps(&#123;</span><br><span class="line">  msg: String,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const sonClick = () =&gt; &#123;</span><br><span class="line">  emit(&#x27;child-click&#x27;, ctx)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="8-vue3组件中如何使用vuerouter和vuex"><a href="#8-vue3组件中如何使用vuerouter和vuex" class="headerlink" title="8.vue3组件中如何使用vuerouter和vuex"></a>8.vue3组件中如何使用vuerouter和vuex</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; useStore &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> $router = useRouter()</span><br><span class="line"><span class="keyword">const</span> store = useStore()</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue3"><span class="toc-number">1.</span> <span class="toc-text">Vue3</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AE%A4%E8%AF%86Vue3"><span class="toc-number">1.1.</span> <span class="toc-text">1.认识Vue3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 性能提升</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%96%B0%E5%A2%9E%E7%89%B9%E6%80%A7"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 新增特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAVue3%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.2.</span> <span class="toc-text">2.创建一个Vue3项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BD%BF%E7%94%A8-vue-cli-%E5%88%9B%E5%BB%BA"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 使用 vue-cli 创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BD%BF%E7%94%A8vite%E5%88%9B%E5%BB%BA"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 使用vite创建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Compositon-API"><span class="toc-number">1.3.</span> <span class="toc-text">3.Compositon API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-setup"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 setup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-ref"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-reactive"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 reactive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%AF%94%E8%BE%83Vue2%E4%B8%8EVue3%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F-%E9%87%8D%E8%A6%81"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 比较Vue2与Vue3的响应式(重要)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-vue2%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">3.4.1 vue2的响应式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-Vue3%E7%9A%84%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">3.4.2 Vue3的响应式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-reactive%E4%B8%8Eref%E7%BB%86%E8%8A%82"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5 reactive与ref细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E4%B8%8E%E7%9B%91%E8%A7%86"><span class="toc-number">1.3.6.</span> <span class="toc-text">3.6 计算属性与监视</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.3.7.</span> <span class="toc-text">3.7生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-toRefs"><span class="toc-number">1.3.8.</span> <span class="toc-text">3.8 toRefs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-ref%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.9.</span> <span class="toc-text">3.9 ref获取元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-toRef"><span class="toc-number">1.3.10.</span> <span class="toc-text">3.10 toRef</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-vue3-ts%E4%B8%ADvue-router-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">4.vue3 ts中vue-router 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-vue3-ts%E4%B8%ADvue-vuex-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.</span> <span class="toc-text">5.vue3 ts中vue-vuex 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%9C%A8main-ts%E4%B8%AD"><span class="toc-number">1.6.</span> <span class="toc-text">6.在main.ts中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%AF%AD%E6%B3%95%E7%B3%96"><span class="toc-number">1.7.</span> <span class="toc-text">7.语法糖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-vue3%E7%BB%84%E4%BB%B6%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8vuerouter%E5%92%8Cvuex"><span class="toc-number">1.8.</span> <span class="toc-text">8.vue3组件中如何使用vuerouter和vuex</span></a></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>

@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>axios - Chaoer&#39;blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="个人博客，主要记录学习笔记,vue中封装axios方法11234567891011121314151617181920212223242526272829303132333435363738394041424344454647,"> 
+    <meta name="author" content="Chaoer"> 
+    <link rel="alternative" href="atom.xml" title="Chaoer&#39;blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Chaoer&#39;blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blackchao-script.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">axios</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">axios</h1>
+        <div class="stuff">
+            <span>九月 11, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6/" rel="tag">网络请求框架</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="vue中封装axios"><a href="#vue中封装axios" class="headerlink" title="vue中封装axios"></a>vue中封装axios</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置baseURL</span></span><br><span class="line"></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;http://127.0.0.1:8888/api/private/v1/&#x27;</span></span><br><span class="line"><span class="comment">// 定义请求头 使用JSON格式</span></span><br><span class="line">axios.defaults.headers.post[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json;charSet=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">axios.defaults.headers.get[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json;charSet=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">axios.defaults.headers.put[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json;charSet=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">axios.defaults.headers.delete[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json;charSet=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line">axios.defaults.headers.patch[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json;charSet=UTF-8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">axios.interceptors.request.use(</span><br><span class="line">  <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 为请求头对象,添加 Token 验证的 Authorzation 字段</span></span><br><span class="line">    config.headers.Authorization = <span class="built_in">window</span>.sessionStorage.getItem(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加响应拦截器</span></span><br><span class="line">axios.interceptors.response.use(</span><br><span class="line">  <span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (response.status !== <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;请求信息&#x27;</span>, response)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Error&#x27;</span>))</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> response</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`err<span class="subst">$&#123;error&#125;</span>`</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">url: <span class="built_in">any</span>, params = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      axios</span><br><span class="line">        .get(url, &#123; <span class="attr">params</span>: params &#125;)</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          resolve(res.data)</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">post</span>(<span class="params">url: <span class="built_in">any</span>, params = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      axios.post(url, params).then(</span><br><span class="line">        <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          resolve(res.data)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">delete</span>(<span class="params">url: <span class="built_in">any</span>, params = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      axios</span><br><span class="line">        .delete(url, params)</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          resolve(res.data)</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">put</span>(<span class="params">url: <span class="built_in">any</span>, params = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      axios</span><br><span class="line">        .put(url, params)</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          resolve(res.data)</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">patch</span>(<span class="params">url: <span class="built_in">any</span>, params = &#123;&#125;</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      axios</span><br><span class="line">        .patch(url, params)</span><br><span class="line">        .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          resolve(res.data)</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在mian.ts中引入</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//! 引入axios网络请求</span></span><br><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&#x27;./api/requests&#x27;</span></span><br><span class="line"><span class="comment">//! 挂载全局方法</span></span><br><span class="line"><span class="keyword">const</span> app = createApp(App)</span><br><span class="line">app.config.globalProperties.$http = request</span><br></pre></td></tr></table></figure>
+
+<p>在页面中使用</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; getCurrentInstance &#125; <span class="keyword">from</span> <span class="string">&#x27;@vue/runtime-core&#x27;</span></span><br><span class="line"><span class="keyword">const</span> &#123; proxy &#125; = getCurrentInstance() <span class="keyword">as</span> <span class="built_in">any</span></span><br><span class="line">proxy.$http.get(<span class="string">&#x27;请求接口&#x27;</span>).then(<span class="function">(<span class="params">res:<span class="built_in">any</span></span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">config</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">    <span class="comment">// 网易云后台服务器地址</span></span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&quot;http://localhost:3000/&quot;</span>,</span><br><span class="line">    <span class="comment">// 请求延时</span></span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">10000</span>,</span><br><span class="line">    <span class="comment">// 允许跨域</span></span><br><span class="line">    <span class="attr">withCredentials</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 请求拦截</span></span><br><span class="line">  instance.interceptors.request.use(</span><br><span class="line">    <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (config.meth === <span class="string">&quot;post&quot;</span> &amp;&amp; !(config.data <span class="keyword">instanceof</span> FormData)) &#123;</span><br><span class="line">        config.headers = &#123;</span><br><span class="line">          <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/x-www-form-urlencoded&quot;</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">        config.data = qs.stringify(config.data, &#123;</span><br><span class="line">          <span class="attr">arrayFormat</span>: <span class="string">&quot;repeat&quot;</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> config;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// 响应拦截</span></span><br><span class="line">  instance.interceptors.response.use(</span><br><span class="line">    <span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> response.data;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> instance(config);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请求方法文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; request &#125; <span class="keyword">from</span> <span class="string">&quot;./request&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取电台详细</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getRadioDetail</span>(<span class="params">rid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> request(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;/dj/detail&quot;</span>,</span><br><span class="line">    <span class="attr">params</span>: &#123;</span><br><span class="line">      rid,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>页面中使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; getRadioDetail&#125; <span class="keyword">from</span> <span class="string">&quot;@/network/radiodetail&quot;</span>;</span><br><span class="line">getRadioDetail(<span class="built_in">this</span>.id).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.detailes = res.data;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vue%E4%B8%AD%E5%B0%81%E8%A3%85axios"><span class="toc-number">1.</span> <span class="toc-text">vue中封装axios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-number">1.1.</span> <span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-number">1.2.</span> <span class="toc-text">方法2</span></a></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
