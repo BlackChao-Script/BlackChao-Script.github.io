@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>前端解决跨域的问题 - Chaoer&#39;blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="个人博客，主要记录学习笔记,前端解决跨域的问题1.浏览器跨域的问题浏览器跨域问题是源于浏览器的同源策略，，协议，域名，端口，三者有其中一个不一致就属于跨域。
+浏览器的同源策略：一段脚本只能读取来自同一来源的窗口和文档的属性，这,"> 
+    <meta name="author" content="Chaoer"> 
+    <link rel="alternative" href="atom.xml" title="Chaoer&#39;blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Chaoer&#39;blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blackchao-script.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">前端解决跨域的问题</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">前端解决跨域的问题</h1>
+        <div class="stuff">
+            <span>九月 14, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="前端解决跨域的问题"><a href="#前端解决跨域的问题" class="headerlink" title="前端解决跨域的问题"></a>前端解决跨域的问题</h1><h2 id="1-浏览器跨域的问题"><a href="#1-浏览器跨域的问题" class="headerlink" title="1.浏览器跨域的问题"></a>1.浏览器跨域的问题</h2><p><strong>浏览器跨域问题是源于浏览器的同源策略，，协议，域名，端口，三者有其中一个不一致就属于跨域。</strong></p>
+<p>浏览器的同源策略：<br>一段脚本只能读取来自同一来源的窗口和文档的属性，这里的同一来源指的是主机名、协议和端口号的组合。</p>
+<p>URL网址的组成:</p>
+<p><a target="_blank" rel="noopener" href="http://www.baidu.com/index.html?username=xxx&amp;password=yyy#hash">http://www.baidu.com:80/index.html?username=xxx&amp;password=yyy#hash</a></p>
+<p>协议：//域名：端口 / 资源路径？查询字符串#hash</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>基本内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>协议</td>
+<td>http,https,ftp</td>
+</tr>
+<tr>
+<td>主机名</td>
+<td>localhost</td>
+</tr>
+<tr>
+<td>端口</td>
+<td>http默认端口: 80，https默认端口：443</td>
+</tr>
+</tbody></table>
+<h2 id="2-同源策略带来的麻烦"><a href="#2-同源策略带来的麻烦" class="headerlink" title="2.同源策略带来的麻烦"></a>2.同源策略带来的麻烦</h2><p>ajax在不同域名下的请求无法实现。</p>
+<p>如下所示：</p>
+<p><img src="https://www.hualigs.cn/image/613f13073c690.jpg"></p>
+<h2 id="3-解决跨域的六种方法"><a href="#3-解决跨域的六种方法" class="headerlink" title="3.解决跨域的六种方法"></a>3.解决跨域的六种方法</h2><h3 id="3-1-JSONP跨域-基本不用"><a href="#3-1-JSONP跨域-基本不用" class="headerlink" title="3.1 JSONP跨域(基本不用)"></a>3.1 JSONP跨域(基本不用)</h3><p>JSONP(JSON with Padding: 填充式JSON)，应用于JSON的一种新方法。</p>
+<p>JSON、JSONP的区别：</p>
+<ul>
+<li>JSON返回的是一串数据，JSONP返回的是脚本代码(包含一个函数调用)</li>
+<li>JSONP只支持get请求、不支持post请求（类似往页面添加一个script标签，通过src属性去触发对指定地址的请求，故只能是Get请求）</li>
+</ul>
+<p>JSONP应用的技巧：<br>在HTML标签里，一些标签比如script、img这样的获取资源的标签是没有跨域限制的。</p>
+<h3 id="3-2-CORS跨域"><a href="#3-2-CORS跨域" class="headerlink" title="3.2 CORS跨域"></a>3.2 CORS跨域</h3><p>后端修改请求头</p>
+<p>header(‘Access-Control-Allow-Origin:*’);允许访问的网址<br>header(‘Access-Control-Allow-Method:POST,GET’);允许访问的方式</p>
+<h3 id="3-3-nginx反向代理"><a href="#3-3-nginx反向代理" class="headerlink" title="3.3 nginx反向代理"></a>3.3 nginx反向代理</h3><p><a target="_blank" rel="noopener" href="http://www.baidu.com/index.html%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8www.sina.com/server.php,%E5%8F%AF%E4%BB%A5%E5%86%99%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3www.baidu.com/server.php,%E7%94%B1%E8%BF%99%E4%B8%AA%E6%8E%A5%E5%8F%A3%E5%9C%A8%E5%90%8E%E7%AB%AF%E5%8E%BB%E8%B0%83%E7%94%A8www.sina.com/server.php%E5%B9%B6%E6%8B%BF%E5%88%B0%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E8%BF%94%E5%9B%9E%E7%BB%99index.html">www.baidu.com/index.html需要调用www.sina.com/server.php,可以写一个接口www.baidu.com/server.php,由这个接口在后端去调用www.sina.com/server.php并拿到返回值，然后再返回给index.html</a></p>
+<h3 id="3-4-document-domain"><a href="#3-4-document-domain" class="headerlink" title="3.4 document.domain"></a>3.4 document.domain</h3><p>跨域分为俩种，一种xhr不能访问不同源的文档，另一种是不同window之间不能进行交互操作；<br>document.domain主要解决第二种情况，且只能适用于主域相同子域不同的情况；<br>document.domain的设置是有限制的，我们只能把document.domain设置成自身或更高一级的父域，且主域必须相同。例如： a.b.example.com 中某个文档的document.domain可以设成a.b.example.com、b.example.com、example.com中的任意一个，但是不可以设成c.a.b.example.com,因为这是当前域的子域，也不可以设成baidu.com，因为主域已经不相同了。</p>
+<p><strong>兼容性：</strong><br>所有浏览器都支持；<br><strong>优点：</strong><br>可以实现不同window之间的相互访问和操作；<br><strong>缺点：</strong><br>只适用于window之间的通信，不能用于xhr；<br>只能在主域相同且子域不同的情况下使用；</p>
+<p><strong>使用方式：</strong><br>不同的框架之间是可以获取window对象的，但却无法获取相应的属性和方法。比如，有一个页面，它的地址是<a target="_blank" rel="noopener" href="http://www.example.com/a.html%EF%BC%8C%E5%9C%A8%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%E9%87%8C%E9%9D%A2%E6%9C%89%E4%B8%80%E4%B8%AAiframe%EF%BC%8C%E5%AE%83%E7%9A%84src%E6%98%AFhttp://example.com/b.html">http://www.example.com/a.html，在这个页面里面有一个iframe，它的src是http://example.com/b.html</a>, 很显然，这个页面与它里面的iframe框架是不同域的，所以我们是无法通过在页面中书写js代码来获取iframe中的东西的。</p>
+<h3 id="3-5-window-name"><a href="#3-5-window-name" class="headerlink" title="3.5  window.name"></a>3.5  window.name</h3><p><strong>关键点：</strong><br>window.name在页面的生命周期里共享一个window.name;<br><strong>兼容性：</strong><br>所有浏览器都支持；<br><strong>优点:</strong><br>最简单的利用了浏览器的特性来做到不同域之间的数据传递；<br>不需要前端和后端的特殊配置；</p>
+<p><strong>缺点：</strong><br>大小限制：window.name最大size是2M左右，不同浏览器中会有不同约定；<br><strong>安全性：</strong><br>当前页面所有window都可以修改，很不安全；<br><strong>数据类型：</strong><br>传递数据只能限于字符串，如果是对象或者其他会自动被转化为字符串。<br><strong>使用方式：</strong><br>修改window.name的值即可；</p>
+<h3 id="3-6-postMessage"><a href="#3-6-postMessage" class="headerlink" title="3.6 postMessage"></a>3.6 postMessage</h3><p><strong>关键点：</strong><br>postMessage是h5引入的一个新概念，现在也在进一步的推广和发展中，他进行了一系列的封装，我们可以通过window.postMessage的方式进行使用，并可以监听其发送的消息；<br><strong>兼容性：</strong><br>移动端可以放心用，但是pc端需要做降级处理</p>
+<p><strong>优点：</strong><br>不需要后端介入就可以做到跨域，一个函数外加俩个参数(请求url，发送数据)就可以搞定；<br>移动端兼容性好；</p>
+<p><strong>缺点：</strong><br>无法做到一对一的传递方式：监听中需要做很多消息的识别，由于postMessage发出的消息对于同一个页面的不同功能相当于一个广播的过程，该页面的所有onmessage都会收到，所以需要做消息的判断；</p>
+<p><strong>安全性问题：</strong><br>三方可以通过截获，注入html或者脚本的形式监听到消息，从而能够做到篡改的效果，所以在postMessage和onMessage中一定要做好这方面的限制；</p>
+<p>发送的数据会通过结构化克隆算法进行序列化，所以只有满足该算法要求的参数才能够被解析，否则会报错，如function就不能当作参数进行传递；</p>
+<p><strong>使用方式：</strong><br>通信的函数，sendMessage负责发送消息，bindEvent负责消息的监听并处理，可以通过代码来做一个大致了解；</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">前端解决跨域的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">1.浏览器跨域的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%BA%BB%E7%83%A6"><span class="toc-number">1.2.</span> <span class="toc-text">2.同源策略带来的麻烦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%85%AD%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">3.解决跨域的六种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-JSONP%E8%B7%A8%E5%9F%9F-%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 JSONP跨域(基本不用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-CORS%E8%B7%A8%E5%9F%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 CORS跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 nginx反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-document-domain"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 document.domain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-window-name"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5  window.name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-postMessage"><span class="toc-number">1.3.6.</span> <span class="toc-text">3.6 postMessage</span></a></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
