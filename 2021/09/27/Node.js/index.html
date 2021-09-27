@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Node.js - Chaoer&#39;blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="个人博客，主要记录学习笔记,Node.js1.Node.js 概述1.1 Node.js 是什么Node.js 不是一门编程语言，它是一个执行 JavaScript 代码工具。
+1.2 为什么浏览器和 Node.js 都内置了,"> 
+    <meta name="author" content="Chaoer"> 
+    <link rel="alternative" href="atom.xml" title="Chaoer&#39;blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Chaoer&#39;blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blackchao-script.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Node.js</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Node.js</h1>
+        <div class="stuff">
+            <span>九月 27, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h1><h2 id="1-Node-js-概述"><a href="#1-Node-js-概述" class="headerlink" title="1.Node.js 概述"></a>1.Node.js 概述</h2><h3 id="1-1-Node-js-是什么"><a href="#1-1-Node-js-是什么" class="headerlink" title="1.1 Node.js 是什么"></a><strong>1.1 Node.js 是什么</strong></h3><p>Node.js 不是一门编程语言，它是一个执行 JavaScript 代码工具。</p>
+<h3 id="1-2-为什么浏览器和-Node-js-都内置了-JavaScript"><a href="#1-2-为什么浏览器和-Node-js-都内置了-JavaScript" class="headerlink" title="1.2 为什么浏览器和 Node.js 都内置了 JavaScript"></a>1.2 为什么浏览器和 Node.js 都内置了 JavaScript</h3><p>因为浏览器和 Node.js 都内置了 JavaScript V8 Engine。</p>
+<p>它可以将 JavaScript 代码编译为计算机能够识别的机器码。</p>
+<p><img src="https://www.hualigs.cn/image/614b214174dad.jpg"></p>
+<h3 id="1-3-浏览器中运行的-JavaScript-和-Node-js-中运行的-JavaScript-的区别"><a href="#1-3-浏览器中运行的-JavaScript-和-Node-js-中运行的-JavaScript-的区别" class="headerlink" title="1.3 浏览器中运行的 JavaScript 和 Node.js 中运行的 JavaScript 的区别"></a>1.3 浏览器中运行的 JavaScript 和 Node.js 中运行的 JavaScript 的区别</h3><p>在内置了 JavaScript V8 Engine 以后实际上只能执行 ECMAScript，就是语言中的语法部分。</p>
+<p>浏览器wield能够让 JavaScript  操作浏览器窗口以及 HTML 文档，所以在 JavaScript    V8 Engine 中添加了控制它们的API，就是 DOM 和 BOM，所以 JavaScript  在浏览器中运行是是可以控制浏览器窗口对象的 DOM 文档对象的。</p>
+<p>和浏览器不同，在 Node.js 中式没有 DOM 和 BOM 的，所以在 Node.js 中不能执行和它们相关的代码，比如 <code>window.alert()</code> 或者 <code>document.getElementById()</code>。DOM 和 BOM 是浏览器环境中特有的。在Node.js 中，作者添加了很多系统级别的 API，比如对操作系统中的文件个文件夹进行操作。获取操作系统信息，比如系统内存总量是多少，系统临时目录在哪，对系统的进程进行操作等等。</p>
+<p><img src="https://www.hualigs.cn/image/614b244a2e163.jpg"></p>
+<p>JavaScript 运行在浏览器中控制的是浏览器窗口和 DOM 文档。</p>
+<p>JavaScript 运行在 Node.js 中控制的操作系统级别的内容。</p>
+<h3 id="1-4-为什么浏览器中的-JavaScript-不能控制系统级别的-API-？"><a href="#1-4-为什么浏览器中的-JavaScript-不能控制系统级别的-API-？" class="headerlink" title="1.4 为什么浏览器中的 JavaScript 不能控制系统级别的 API ？"></a>1.4 为什么浏览器中的 JavaScript 不能控制系统级别的 API ？</h3><p>浏览器是运行在用户的操作系统中的，如果能控控制系统级别的 API 就会存在安全问题。</p>
+<p>Node.js 是运行在远程的服务器中的，访问的是服务器系统 API，不存在这方面的安全问题。</p>
+<h3 id="1-5-Node-js-能够做什么"><a href="#1-5-Node-js-能够做什么" class="headerlink" title="1.5 Node.js 能够做什么"></a>1.5 Node.js 能够做什么</h3><p>我们通常使用它来构建服务器端应用和创建前端工程化工具。</p>
+<p>JavaScript 运行在浏览器中我们就叫它客户端 JavaScript。</p>
+<p>JavaScript 运行在 Node.js 中我们就叫它服务器端 JavaScript。</p>
+<p><img src="https://www.hualigs.cn/image/614bd5c3ca25f.jpg"></p>
+<h2 id="2-Nodejs的安装以及系统环境变量"><a href="#2-Nodejs的安装以及系统环境变量" class="headerlink" title="2.Nodejs的安装以及系统环境变量"></a>2.Nodejs的安装以及系统环境变量</h2><p>系统环境变量是指在操作系统级别上定义的变量，变量中存储了程序运行时所需要的参数。</p>
+<h3 id="2-1-下载Node-js"><a href="#2-1-下载Node-js" class="headerlink" title="2.1 下载Node.js"></a>2.1 下载Node.js</h3><p>进入Nodejs<strong>官网</strong><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a> 选择下载最新版，也可以选择稳定的版本，个人喜欢用新的</p>
+<p><img src="https://www.hualigs.cn/image/614bd77df0786.jpg"></p>
+<h3 id="2-2-安装Node-js"><a href="#2-2-安装Node-js" class="headerlink" title="2.2 安装Node.js"></a>2.2 安装Node.js</h3><p>打开下载完成的安装包一直Next下一步就行。</p>
+<p>最好更改一下安装路径</p>
+<h3 id="2-3-检查Nodejs和npm包管理工具是否安装完成"><a href="#2-3-检查Nodejs和npm包管理工具是否安装完成" class="headerlink" title="2.3 检查Nodejs和npm包管理工具是否安装完成"></a>2.3 检查Nodejs和npm包管理工具是否安装完成</h3><ul>
+<li><p> Win+R 打开运行窗口 输入 cmd 打开<code>cmd控制台</code></p>
+</li>
+<li><p>输入 <code>node -v</code> 查看nodejs版本号，控制台输出版本号，说明安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果提示 ‘node’不是内部或外部命令，也不是可运行的程序或批处理文件，要么安装出了问题，要么环境变量出了问题</span><br></pre></td></tr></table></figure></li>
+<li><p>输入 npm -v 查看npm版本号，控制台输出版本号，说明安装成功</p>
+</li>
+</ul>
+<h3 id="2-4-Nodejs环境变量配置"><a href="#2-4-Nodejs环境变量配置" class="headerlink" title="2.4 Nodejs环境变量配置"></a>2.4 Nodejs环境变量配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Nodejs默认模块安装路径和缓存路径均在C盘(C:\Users\你的用户名(Administrator)\AppData\Roaming\npm和C:\Users\你的用户名(Administrator)\AppData\Local\npm-cache)</span><br><span class="line"></span><br><span class="line">你可以打开cmd控制台使用npm config get prefix和npm config get cache命令来查看当前使用的路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-修改模块安装和缓存路径"><a href="#2-5-修改模块安装和缓存路径" class="headerlink" title="2.5 修改模块安装和缓存路径"></a>2.5 修改模块安装和缓存路径</h3><ol>
+<li><p>在Nodejs安装目录下新建一个文件夹,并命名为 <code>node_cache</code></p>
+</li>
+<li><p>使用命令修改config配置,首先打开cmd控制台</p>
+<p>1.使用命令修改模块安装路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">注意：请将路径换成你自己的Nodejs安装目录路径，不要怀疑，就是Nodejs的安装目录!!!</span><br><span class="line"></span><br><span class="line">npm config set prefix &quot;D:\NodeJS&quot;</span><br></pre></td></tr></table></figure>
+
+<p>2.使用命令修改缓存路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">注意：请将路径换成你自己的node_cache文件夹路径</span><br><span class="line"></span><br><span class="line">npm config set cache &quot;D:\NodeJS\node_cache&quot;</span><br></pre></td></tr></table></figure>
+
+<p>3.最后你可以使用<code>npm config get prefix</code>和<code>npm config get cache</code>命令查看一下是否配置成功</p>
+</li>
+</ol>
+<h3 id="2-6-配置环境变量"><a href="#2-6-配置环境变量" class="headerlink" title="2.6 配置环境变量"></a>2.6 配置环境变量</h3><ol>
+<li><p>找到<code>高级系统设置</code>，点击 <code>环境变量</code></p>
+</li>
+<li><p>双击上方<code>用户变量</code>的<code>Path</code></p>
+</li>
+<li><p>找到Nodejs默认的配置路径，然后单击<code>选中</code>它，再点击<code>删除</code>，然后点击<code>确定</code>，返回到<code>环境变量界面</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个配置路径是安装Nodejs时，自动生成的，如果没有可以不用管，有的话一定要删除！</span><br></pre></td></tr></table></figure></li>
+<li><p>点击下方<code>系统变量</code>的<code>新建</code>，然后输入变量名<code>NODE_PATH</code>，变量值为<code>node_modules文件</code>的路径，最后点击<code>确定</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：变量名必须是NODE_PATH!!! node_modules文件在Nodejs安装目录下，这个是安装时自己生成的</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="https://www.hualigs.cn/image/614c1c7dca555.jpg"></p>
+<h3 id="2-7-检查配置是否成功"><a href="#2-7-检查配置是否成功" class="headerlink" title="2.7 检查配置是否成功"></a>2.7 检查配置是否成功</h3><ol>
+<li>打开Nodejs安装目录下的<code>node_modules文件夹</code>，可以看见里面只有一个<code>npm文件</code></li>
+<li>打开Nodejs安装目录下的<code>node_cache文件夹</code>，可以看见它多了几个文件</li>
+</ol>
+<h2 id="3-Node-js-初体验"><a href="#3-Node-js-初体验" class="headerlink" title="3.Node.js 初体验"></a>3.Node.js 初体验</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">funciton sayHello (name) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`hello,<span class="subst">$&#123;name&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br><span class="line">sayHello(<span class="string">&#x27;Nodejs&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在命令行工具中通过 <code>node JavaScript 文件</code> 的方式执行代码</p>
+<h3 id="3-1-全局对象"><a href="#3-1-全局对象" class="headerlink" title="3.1 全局对象"></a>3.1 全局对象</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>) <span class="comment">// window is not defined</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Node.js 环境中是没有 window 的，所以 window 对象自然是未定义的。</p>
+<p>在 Node.js 环境中全局对象为 global，在 global 对象中会存在一些和 window 对象中名字相同且作用相同的方。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">global</span>.console.log</span><br><span class="line"><span class="built_in">global</span>.setInterval</span><br><span class="line"><span class="built_in">global</span>.clearInterval</span><br><span class="line"><span class="built_in">global</span>.setTimeout</span><br><span class="line"><span class="built_in">global</span>.clearTimeout</span><br><span class="line"><span class="built_in">global</span>.setImmediate</span><br></pre></td></tr></table></figure>
+
+<p>在 Node.js 环境中声明变量不会被添加到全局对象中，变量声明后只能在当前文件中使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">global</span>.message) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-模块系统"><a href="#4-模块系统" class="headerlink" title="4.模块系统"></a>4.模块系统</h2><h3 id="4-1-模块概述"><a href="#4-1-模块概述" class="headerlink" title="4.1 模块概述"></a>4.1 模块概述</h3><p>在 Node.js 环境中，默认就支持模块系统，该模块系统遵循 CommonJS 规范。</p>
+<p>在 JavaScript 文件就是一个模块，在模块文件中定义的变量的函数默认只能在模块内部使用，如果需要在其他文件中使用，必须显式声明将其进行导出。</p>
+<h3 id="4-2-模块成员导出"><a href="#4-2-模块成员导出" class="headerlink" title="4.2 模块成员导出"></a>4.2 模块成员导出</h3><p>在每一个文件中，都会存在一个 module 对象，及模块对象。在模块对象中保存了和当前模块相关信息。</p>
+<p>在模块对象中有一个属性 exports，它的值式一个对象，模块内部需要被导出的成员都应该存储到这个对象中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Module &#123;</span><br><span class="line">  <span class="attr">exports</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// logger.js</span></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&quot;http://mylogger.io/log&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(message)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports.endPoint = url</span><br><span class="line"><span class="built_in">module</span>.exports.log = log</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-模块成员导入"><a href="#4-3-模块成员导入" class="headerlink" title="4.3 模块成员导入"></a>4.3 模块成员导入</h3><p>在其他文件中通过 require 方法引入模块，require 方法的返回值就是对应模块的 module.exports 对象。</p>
+<p>在导入模块时，模块文件后缀.js可以省略，文件路径不可省略。</p>
+<p>require 方法属于同步导入模块，模块导入后可以立即使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">const</span> logger = <span class="built_in">require</span>(<span class="string">&quot;./logger&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(logger) <span class="comment">// &#123; endPoint: &#x27;http://mylogger.io/log&#x27;, log: [Function: log] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(logger.endPoint) <span class="comment">// http://mylogger.io/log</span></span><br><span class="line">logger.log(<span class="string">&#x27;Hello Module&#x27;</span>)   <span class="comment">// Hello Node</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 require 方法引入模块时会执行该模块中的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// logger.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;running...&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&quot;./logger&quot;</span>) <span class="comment">// running...</span></span><br></pre></td></tr></table></figure>
+
+<p>在导入其他模块时，建议使用 const 关键字声明常量，防止模块被重置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> logger = <span class="built_in">require</span>(<span class="string">&quot;./logger&quot;</span>)</span><br><span class="line">logger = <span class="number">1</span>;</span><br><span class="line">logger.log(<span class="string">&quot;Hello&quot;</span>) <span class="comment">// logger.log is not a function</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> logger = <span class="built_in">require</span>(<span class="string">&quot;./logger&quot;</span>)</span><br><span class="line">logger = <span class="number">1</span>;  <span class="comment">// Assignment to constant variable.</span></span><br><span class="line">logger.log(<span class="string">&quot;Hello&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>有时在一个模块中只会导出一个成员，为方便其他模块使用，可以采用以下导入方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// logger.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(message)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">const</span> logger = <span class="built_in">require</span>(<span class="string">&quot;./logger&quot;</span>)</span><br><span class="line">logger(<span class="string">&quot;Hello&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4-Module-Wrapper-Function"><a href="#4-4-Module-Wrapper-Function" class="headerlink" title="4.4  Module Wrapper Function"></a>4.4  Module Wrapper Function</h3><p>Node.js 是如何实现模块的，为什么在模块文件内部定义的变量在模块文件尾部访问不到？</p>
+<p>每一个模块文件中都会有 module 对象 和 require 方法，它们是从哪里来的？</p>
+<p>在模块文件执行之前，模块文件中的代码会被包裹在模块包装函数当中，这样每一个模块文件中的代码就都拥有了自己的作用域，所以在模块尾部就不能访问模块内部的成员了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"><span class="built_in">exports</span>, <span class="built_in">require</span>, <span class="built_in">module</span>, __filename, __dirname</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// entire module code lives here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>从这个模块包装函数中可以看到，module 和 require 实际上模块内部成员, 不是全局对象 global 下面的属性。</p>
+<p>__filename：当前模块文件名称。</p>
+<p>__dirname：当前文件所在路径。</p>
+<p>exports：引用地址指向了 module.exports 对象，可以理解为是 module.exports 对象的简写形式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.endPoint = url;</span><br><span class="line"><span class="built_in">exports</span>.log = log</span><br></pre></td></tr></table></figure>
+
+<p>在导入模块时最终导入的是 module.exports 对象，所以在使用 exports 对象添加导出成员时不能修改引用地址。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span> = log <span class="comment">//这是错误的写法.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-5-Node-js-内置模块"><a href="#4-5-Node-js-内置模块" class="headerlink" title="4.5 Node.js 内置模块"></a>4.5 Node.js 内置模块</h3><p>在 Node.js 安装完成后，会内置一些非常有用的模块。</p>
+<p>Path：模块内置提供了一些和路径操作相关的方法。</p>
+<p>File system：文件操作系统，提供和操作文件相关的方法。</p>
+<p>在引入内置模块是，使用的是模块的名字，前面不需要加任何路径。</p>
+<h4 id="4-5-1-Path-模块"><a href="#4-5-1-Path-模块" class="headerlink" title="4.5.1 Path 模块"></a>4.5.1 Path 模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(path.parse(__filename))</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">root</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">  <span class="attr">dir</span>: <span class="string">&#x27;/Users/administrators/Desktop/node_test&#x27;</span>,</span><br><span class="line">  <span class="attr">base</span>: <span class="string">&#x27;app.js&#x27;</span>,</span><br><span class="line">  <span class="attr">ext</span>: <span class="string">&#x27;.js&#x27;</span>,</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;app&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-5-2-File-system（模块）"><a href="#4-5-2-File-system（模块）" class="headerlink" title="4.5.2 File system（模块）"></a>4.5.2 File system（模块）</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> files = fs.readdirSync(<span class="string">&quot;./&quot;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(files)  [ <span class="string">&#x27;app.js&#x27;</span>, <span class="string">&#x27;logger.js&#x27;</span> ]</span><br><span class="line"></span><br><span class="line">fs.readdir(<span class="string">&quot;./&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, files</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(error) <span class="comment">// null | Error &#123;&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(files) <span class="comment">// [ &#x27;app.js&#x27;, &#x27;logger.js&#x27; ] | undefined</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-NPM"><a href="#5-NPM" class="headerlink" title="5.NPM"></a>5.NPM</h2><h3 id="5-1-Node-js-软件包"><a href="#5-1-Node-js-软件包" class="headerlink" title="5.1 Node.js 软件包"></a>5.1 Node.js 软件包</h3><p>每一个基于 Node.js 平台开发的应用程序都市 Node.js 软件包。</p>
+<p>所有 Node.js 软件包都被托管在 <a target="_blank" rel="noopener" href="http://www.npmjs.com/">www.npmjs.com</a> 中。</p>
+<h3 id="5-2-什么是-NPM"><a href="#5-2-什么是-NPM" class="headerlink" title="5.2 什么是 NPM"></a>5.2 什么是 NPM</h3><p>Node Packge Manger, Node.js 环境中的软件包管理器。随 Node.js 一起安装。</p>
+<p>它可以将 Node 软件包添加到我们的应用程序中并对其进行管理，比如下载，删除，更新，查看版本等等。</p>
+<p>它没有用户界面，需要子啊命令工具中通过命令的方法使用，对应的命令就是 npm。</p>
+<p>NPM 和 Node 是两个独立的应用程序，只是被捆绑安装了，可以通过版本号证明。</p>
+<h3 id="5-3-package-json"><a href="#5-3-package-json" class="headerlink" title="5.3 package.json"></a>5.3 package.json</h3><p>Node.js 规定在每一个软件包中都必须包含一个叫做 package.json 的文件。</p>
+<p>它是应用程序的描述的文件，包含和应用程序相关的信息，比如应用名称，应用版本，应用作者等等。</p>
+<p>通过 package.json 文件可以方便管理应用和发布应用。</p>
+<ul>
+<li>创建 package.json 文件: <code>npm init (npm i)</code></li>
+<li>快速创建 package.json 文件: <code>npm init -yes (npm i -y)</code></li>
+</ul>
+<h3 id="5-4-下载-Node-js-软件包"><a href="#5-4-下载-Node-js-软件包" class="headerlink" title="5.4 下载 Node.js 软件包"></a>5.4 下载 Node.js 软件包</h3><p>在应用程序的根目录执行命令: <code>npm install &lt;pkg&gt;</code></p>
+<p>软件包下载完成后会发生三件事:</p>
+<ol>
+<li>软件包会被存储在 node_modules 文件中，如果在应用中不存在此文件夹，npm会自动创建。</li>
+<li>软件包会被记录在 <code>package.json</code> 文件中，包含软件包的名字以及版本号。</li>
+<li>npm 会在应用中创建 <code>package-lock.json</code> 文件，用于记录软件包及软报价包的依赖包下载地址以版本。</li>
+</ol>
+<h3 id="5-5-使用-Node-js-软件包"><a href="#5-5-使用-Node-js-软件包" class="headerlink" title="5.5 使用 Node.js 软件包"></a>5.5 使用 Node.js 软件包</h3><p>在引入第三方软件包，在 require 方法中不需要加入路径信息，只要需要使用软件包得到名字即可， require 方法会自动去 node_modules 文件夹中进行查找。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _ = <span class="built_in">require</span>(<span class="string">&quot;lodash&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> array = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>]</span><br><span class="line"><span class="comment">// chunk 对数组中的元素进行分组</span></span><br><span class="line"><span class="comment">// 参数一表示要进行操作的数组</span></span><br><span class="line"><span class="comment">// 参数二表示每一组中包含的元素个数</span></span><br><span class="line"><span class="built_in">console</span>.log(_.chunk(array, <span class="number">2</span>)) <span class="comment">// [ [ &#x27;a&#x27;, &#x27;b&#x27; ], [ &#x27;c&#x27;, &#x27;d&#x27; ] ]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-6-软件包依赖问题说明"><a href="#5-6-软件包依赖问题说明" class="headerlink" title="5.6 软件包依赖问题说明"></a>5.6 软件包依赖问题说明</h3><ol>
+<li><p>比如在我的应用中要依赖 mongoose 软件包，于是我下载了它，但是在 node_modules 文件夹中除了包含 mongoose 以外还多出了很多其他软件包，为什么会多出这么多软件包呢？</p>
+<p>实际上它们又是 mongoose 依赖的软件包。</p>
+</li>
+<li><p>为什么 mongoose 依赖的软件包不放在 mongoose 文件夹中呢？</p>
+<p>在早期的 npm 版本中, 某个软件包依赖的其他软件包都会被放置在该软件包内部的 node_modules 文件夹中，但是这样做存在两个问题，第一个问题是很多软件包都会有相同的依赖，导致开发者在一个项目中会下载很多重复的软件包，比如 A 依赖 X，B 依赖 X，C 依赖 X，在这种情况下 X 就会被重复下载三次。第二个问题是文件夹嵌套层次太深，导致文件夹在 windows 系统中不能被直接删除。比如 A 依赖 B, B 依赖 C, C 依赖 D … , 就会发生文件夹依次嵌套的情况。</p>
+</li>
+<li><p>所有的软件包都放置在 node_modules 文件夹中不会导致软件包的版本冲突吗？</p>
+<p>在目前的 npm 版本中，所有的软件包都会被直接放置在应用根目录的 node_modules 文件夹中，这样虽然解决了文件夹嵌套层次过深和重复下载软件包的问题，但如果只这样做肯定会导致软件包的冲突的问题，如何解决呢？</p>
+<p>比如 A 依赖 X 的 1 版本，B 依赖 X 的 2 版本，如果你先下载的是 A，那么 A 依赖的 X 会被放置在根目录的 node_modules 文件夹中, 当下载 B 时，由于在根目录中已经存在 X 并且版本不一致，那么 B 依赖的 X 就会被放置在 B 软件包中的 node_module 文件夹中，通过此方式解决软件包版本冲突的问题。</p>
+</li>
+<li><p>node_modules 文件夹中的软件包都需要提交到 git 仓库中吗？</p>
+<p>在 node_modules 文件夹中有很多软件包，随着应用程序的增长，软件包也会越来越多，甚至会达到几百兆。</p>
+<p>当我们将应用提交到版本库时，我们不想提交它，因为它们不是我们应用中的源代码，而且由于碎文件比较多，其他人在检出代码时需要等待的时间会很久。当其他人拿到应用程序时没有依赖软件包应用程序是运行不起来的，如何解决呢?</p>
+<p>实际上应用程序依赖了哪些软件包在 package.json 文件中都会有记录，其他人可以通过 npm install 命令重新下载它们。为了保持下载版本一直，npm 还会根据 package-lock.json 文件中的记录的地址进行下载。</p>
+<p>将应用程序提交到版本库之前，将 node_modules 文件夹添加到 .gitignore 文件中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git status</span><br><span class="line">echo <span class="string">&quot;node_modules/&quot;</span> &gt; .gitignore</span><br><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;our first commit&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="6-HTTP-与-HTTP-模块"><a href="#6-HTTP-与-HTTP-模块" class="headerlink" title="6.HTTP 与 HTTP 模块"></a>6.HTTP 与 HTTP 模块</h2><p>如果我们使用 PHP 来编写后端的代码时，需要 Apache 或者 Nginx 的 HTTP 服务器， 来处理客户端的请求相应。不过对 Node.js 来说，概念完全不一样了。使用 Node.js 时， 我们不仅仅在实现一个应用，同时还实现了整个 HTTP 服务器。</p>
+<h3 id="6-1-引入-http-模块"><a href="#6-1-引入-http-模块" class="headerlink" title="6.1 引入 http 模块"></a>6.1 引入 http 模块</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-2-创建服务器"><a href="#6-2-创建服务器" class="headerlink" title="6.2 创建服务器"></a>6.2 创建服务器</h3><p>接下来我们使用 http.createServer() 方法创建服务器，并使用 listen 方法绑定 8888 端口。 函数通过 request, response 参数来接收和响应数据。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request,response</span>)</span>&#123;</span><br><span class="line">                  <span class="comment">// 发送 HTTP 头部</span></span><br><span class="line"><span class="comment">// HTTP 状态值: 200 : OK</span></span><br><span class="line"><span class="comment">// 设置 HTTP 头部，状态码是200，文件类型是 html,字符值是 utf8</span></span><br><span class="line">response.writeHead(<span class="number">200</span>,&#123;<span class="string">&quot;Content-Type&quot;</span>:<span class="string">&quot;text/html;charset=UTF-8&quot;</span>&#125;);</span><br><span class="line"><span class="comment">// 发送响应数据 &quot;Hello World&quot;</span></span><br><span class="line">res.end(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br><span class="line"><span class="comment">// 终端打印如下信息</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;Server running at http://127.0.0.1:8080/&#x27;</span><span class="string">&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-3-运行程序"><a href="#6-3-运行程序" class="headerlink" title="6.3 运行程序"></a>6.3 运行程序</h3><p>用命令行切换到程序对应目录。通过 node 命令运行程序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node 文件名.js</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-URL-模块的使用"><a href="#6-4-URL-模块的使用" class="headerlink" title="6.4.URL 模块的使用"></a>6.4.URL 模块的使用</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url.parse() <span class="comment">//解析 URL</span></span><br><span class="line">url.format(urlObject) <span class="comment">//是上面 url.parse() 操作的逆向操作</span></span><br><span class="line">url.resolve(<span class="keyword">from</span>,to) <span class="comment">//添加或者替换地址</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-内置模块之-fs-模块"><a href="#7-内置模块之-fs-模块" class="headerlink" title="7.内置模块之 fs 模块"></a>7.内置模块之 fs 模块</h2><h3 id="7-1-fs-stat-检测是文件还是目录"><a href="#7-1-fs-stat-检测是文件还是目录" class="headerlink" title="7.1 fs.stat 检测是文件还是目录"></a>7.1 fs.stat 检测是文件还是目录</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line">fs.stat(<span class="string">&#x27;hello.js&#x27;</span>),<span class="function">(<span class="params">error,stats</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(error)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(stats)</span><br><span class="line">        <span class="built_in">console</span>.loh(<span class="string">`文件 :<span class="subst">$&#123;stats.isFile()&#125;</span>`</span>)</span><br><span class="line">        <span class="built_in">console</span>.loh(<span class="string">`目录 :<span class="subst">$&#123;stats.isDirectory()&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-fs-mkdir-创建目录"><a href="#7-2-fs-mkdir-创建目录" class="headerlink" title="7.2 fs.mkdir 创建目录"></a>7.2 fs.mkdir 创建目录</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line">fs.mkdir(<span class="string">&#x27;logs&#x27;</span>,<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(error)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;成功创建目录: logs&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-fs-writeFile-创建写入文件"><a href="#7-3-fs-writeFile-创建写入文件" class="headerlink" title="7.3 fs.writeFile 创建写入文件"></a>7.3 fs.writeFile 创建写入文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  filename      (String)       文件名称</span></span><br><span class="line"><span class="comment">  data      (String | Buffer)  将要写入的内容，可以是字符串 或 buffer数据</span></span><br><span class="line"><span class="comment">  options     (Object)        option数组对象</span></span><br><span class="line"><span class="comment">  callback&#123;Function&#125;  回调，传递一个异常参数err</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> fs.writeFile(<span class="string">&quot;./html/index.html&quot;</span>, <span class="string">&quot;你好nodejs&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (err) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(err);</span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;创建写入成功&quot;</span>);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-4-fs-appendFile-追加文件"><a href="#7-4-fs-appendFile-追加文件" class="headerlink" title="7.4 fs.appendFile 追加文件"></a>7.4 fs.appendFile 追加文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.appendFile(<span class="string">&quot;./css/beas.css&quot;</span>, <span class="string">&quot;body&#123;color : red&#125;&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;追加文件成功&quot;</span>);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-5-fs-readFile-读取文件"><a href="#7-5-fs-readFile-读取文件" class="headerlink" title="7.5 fs.readFile 读取文件"></a>7.5 fs.readFile 读取文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">&quot;./html/index.html&quot;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-6-fs-readdir-读取目录"><a href="#7-6-fs-readdir-读取目录" class="headerlink" title="7.6 fs.readdir 读取目录"></a>7.6 fs.readdir 读取目录</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.readdir(<span class="string">&quot;./html&quot;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-7-fs-rename-重命名-功能：1-重命名-2-移动文件"><a href="#7-7-fs-rename-重命名-功能：1-重命名-2-移动文件" class="headerlink" title="7.7 fs.rename 重命名 功能：1.重命名 2.移动文件"></a>7.7 fs.rename 重命名 功能：1.重命名 2.移动文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.重命名</span></span><br><span class="line"> fs.rename(<span class="string">&quot;./css/aaa.css&quot;</span>, <span class="string">&quot;./css/index.css&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (err) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(err);</span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;重命名成功&quot;</span>);</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.移动文件</span></span><br><span class="line"> fs.rename(<span class="string">&quot;./css/index.css&quot;</span>, <span class="string">&quot;./html/index.css&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">if</span> (err) &#123;</span><br><span class="line">     <span class="built_in">console</span>.log(err);</span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;移动文件成功&#x27;</span>);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-8-fs-rmdir-删除目录"><a href="#7-8-fs-rmdir-删除目录" class="headerlink" title="7.8 fs.rmdir 删除目录"></a>7.8 fs.rmdir 删除目录</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.rmdir(<span class="string">&quot;./aaa&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;删除目录成功&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-9-fs-unlink-删除文件"><a href="#7-9-fs-unlink-删除文件" class="headerlink" title="7.9 fs.unlink 删除文件"></a>7.9 fs.unlink 删除文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.unlink(<span class="string">&quot;./aaa.c&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;删除文件成功&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-10-管道流"><a href="#7-10-管道流" class="headerlink" title="7.10 管道流"></a>7.10 管道流</h3><p>管道提供了一个输出流到输入流的机制。通常我们用于从一个流中获取数据并将数据传递到另外一个流中。</p>
+<p><img src="https://www.hualigs.cn/image/614fc5a6ce96e.jpg"></p>
+<p>如上面的图片所示，我们把文件比作装水的桶，而水就是文件里的内容，我们用一根管子(pipe)连接两个桶使得水从一个 桶流入另一个桶，这样就慢慢的实现了大文件的复制过程。 以下实例我们通过读取一个文件内容并将内容写入到另外一个文件中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"><span class="comment">// 创建一个可读流</span></span><br><span class="line"><span class="keyword">const</span> readerStream = fs.createReadStream(<span class="string">&#x27;input.txt&#x27;</span>);</span><br><span class="line"><span class="comment">// 创建一个可写流</span></span><br><span class="line"><span class="keyword">var</span> writerStream = fs.createWriteStream(<span class="string">&#x27;output.txt&#x27;</span>);</span><br><span class="line"><span class="comment">// 管道读写操作</span></span><br><span class="line"><span class="comment">// 读取 input.txt 文件内容，并将内容写入到 output.txt 文件中</span></span><br><span class="line">readerStream.pipe(writerStream);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;程序执行完毕&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Node-js"><span class="toc-number">1.</span> <span class="toc-text">Node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Node-js-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1.Node.js 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Node-js-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 Node.js 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B5%8F%E8%A7%88%E5%99%A8%E5%92%8C-Node-js-%E9%83%BD%E5%86%85%E7%BD%AE%E4%BA%86-JavaScript"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 为什么浏览器和 Node.js 都内置了 JavaScript</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84-JavaScript-%E5%92%8C-Node-js-%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84-JavaScript-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 浏览器中运行的 JavaScript 和 Node.js 中运行的 JavaScript 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84-JavaScript-%E4%B8%8D%E8%83%BD%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%BA%A7%E5%88%AB%E7%9A%84-API-%EF%BC%9F"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4 为什么浏览器中的 JavaScript 不能控制系统级别的 API ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-Node-js-%E8%83%BD%E5%A4%9F%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5 Node.js 能够做什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Nodejs%E7%9A%84%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">2.Nodejs的安装以及系统环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%8B%E8%BD%BDNode-js"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 下载Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%AE%89%E8%A3%85Node-js"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%A3%80%E6%9F%A5Nodejs%E5%92%8Cnpm%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 检查Nodejs和npm包管理工具是否安装完成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Nodejs%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 Nodejs环境变量配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85%E5%92%8C%E7%BC%93%E5%AD%98%E8%B7%AF%E5%BE%84"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 修改模块安装和缓存路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.6.</span> <span class="toc-text">2.6 配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E6%A3%80%E6%9F%A5%E9%85%8D%E7%BD%AE%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-number">1.2.7.</span> <span class="toc-text">2.7 检查配置是否成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Node-js-%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-number">1.3.</span> <span class="toc-text">3.Node.js 初体验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 全局对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.4.</span> <span class="toc-text">4.模块系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 模块概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%A8%A1%E5%9D%97%E6%88%90%E5%91%98%E5%AF%BC%E5%87%BA"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 模块成员导出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%A8%A1%E5%9D%97%E6%88%90%E5%91%98%E5%AF%BC%E5%85%A5"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 模块成员导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Module-Wrapper-Function"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4  Module Wrapper Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Node-js-%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.5.</span> <span class="toc-text">4.5 Node.js 内置模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1-Path-%E6%A8%A1%E5%9D%97"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">4.5.1 Path 模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-2-File-system%EF%BC%88%E6%A8%A1%E5%9D%97%EF%BC%89"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">4.5.2 File system（模块）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-NPM"><span class="toc-number">1.5.</span> <span class="toc-text">5.NPM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Node-js-%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 Node.js 软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BB%80%E4%B9%88%E6%98%AF-NPM"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 什么是 NPM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-package-json"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 package.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E4%B8%8B%E8%BD%BD-Node-js-%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 下载 Node.js 软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E4%BD%BF%E7%94%A8-Node-js-%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 使用 Node.js 软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E8%BD%AF%E4%BB%B6%E5%8C%85%E4%BE%9D%E8%B5%96%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.6.</span> <span class="toc-text">5.6 软件包依赖问题说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-HTTP-%E4%B8%8E-HTTP-%E6%A8%A1%E5%9D%97"><span class="toc-number">1.6.</span> <span class="toc-text">6.HTTP 与 HTTP 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%BC%95%E5%85%A5-http-%E6%A8%A1%E5%9D%97"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 引入 http 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 创建服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 运行程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-URL-%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.6.4.</span> <span class="toc-text">6.4.URL 模块的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97%E4%B9%8B-fs-%E6%A8%A1%E5%9D%97"><span class="toc-number">1.7.</span> <span class="toc-text">7.内置模块之 fs 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-fs-stat-%E6%A3%80%E6%B5%8B%E6%98%AF%E6%96%87%E4%BB%B6%E8%BF%98%E6%98%AF%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.1.</span> <span class="toc-text">7.1 fs.stat 检测是文件还是目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-fs-mkdir-%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.2.</span> <span class="toc-text">7.2 fs.mkdir 创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-fs-writeFile-%E5%88%9B%E5%BB%BA%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.3.</span> <span class="toc-text">7.3 fs.writeFile 创建写入文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-fs-appendFile-%E8%BF%BD%E5%8A%A0%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.4.</span> <span class="toc-text">7.4 fs.appendFile 追加文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-fs-readFile-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.5.</span> <span class="toc-text">7.5 fs.readFile 读取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-fs-readdir-%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.6.</span> <span class="toc-text">7.6 fs.readdir 读取目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-fs-rename-%E9%87%8D%E5%91%BD%E5%90%8D-%E5%8A%9F%E8%83%BD%EF%BC%9A1-%E9%87%8D%E5%91%BD%E5%90%8D-2-%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.7.</span> <span class="toc-text">7.7 fs.rename 重命名 功能：1.重命名 2.移动文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-fs-rmdir-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95"><span class="toc-number">1.7.8.</span> <span class="toc-text">7.8 fs.rmdir 删除目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-9-fs-unlink-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">1.7.9.</span> <span class="toc-text">7.9 fs.unlink 删除文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-10-%E7%AE%A1%E9%81%93%E6%B5%81"><span class="toc-number">1.7.10.</span> <span class="toc-text">7.10 管道流</span></a></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
